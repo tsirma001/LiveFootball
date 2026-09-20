@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LiveFootball - Matches</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#07100c;
+  color:#fff;
+  min-height:100vh;
+}
+
+.app{
+  width:100%;
+  max-width:600px;
+  min-height:100vh;
+  margin:auto;
+  background:#09140f;
+  padding-bottom:85px;
+}
+
+/* HEADER */
+
+.header{
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 17px;
+  background:#0b1711;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.back-btn{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:12px;
+  background:#122019;
+  color:#fff;
+  cursor:pointer;
+}
+
+.title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.header-icon{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:12px;
+  background:#122019;
+  color:#dbe8e0;
+  cursor:pointer;
+}
+
+/* CONTENT */
+
+.content{
+  padding:18px 15px;
+}
+
+/* TABS */
+
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:20px;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.tab{
+  border:1px solid rgba(255,255,255,.07);
+  background:#101d16;
+  color:#8d9d94;
+  padding:10px 16px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+.tab.active{
+  background:#16a34a;
+  color:#fff;
+  border-color:#16a34a;
+}
+
+/* DATE */
+
+.date-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.date-title{
+  font-size:16px;
+  font-weight:800;
+}
+
+.date{
+  color:#83958b;
+  font-size:12px;
+}
+
+/* LEAGUE */
+
+.league-section{
+  margin-bottom:20px;
+}
+
+.league-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#101d16;
+  border:1px solid rgba(255,255,255,.06);
+  padding:12px 13px;
+  border-radius:13px 13px 0 0;
+}
+
+.league-name{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.league-icon{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:#17291f;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#4ade80;
+}
+
+.country{
+  color:#72837a;
+  font-size:10px;
+}
+
+/* MATCH */
+
+.match{
+  background:#0d1a14;
+  border:1px solid rgba(255,255,255,.06);
+  border-top:0;
+  padding:15px 12px;
+  cursor:pointer;
+}
+
+.match:last-child{
+  border-radius:0 0 13px 13px;
+}
+
+.match:active{
+  transform:scale(.99);
+}
+
+.match-status{
+  display:flex;
+  justify-content:center;
+  margin-bottom:13px;
+}
+
+.live{
+  color:#4ade80;
+  background:rgba(34,197,94,.11);
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.time{
+  color:#87968e;
+  font-size:11px;
+  background:#15221b;
+  padding:5px 10px;
+  border-radius:8px;
+}
+
+.match-content{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.team{
+  width:38%;
+  text-align:center;
+}
+
+.team-logo{
+  width:44px;
+  height:44px;
+  border-radius:13px;
+  background:#17251d;
+  border:1px solid rgba(255,255,255,.07);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 7px;
+  color:#aebdb5;
+  font-size:17px;
+}
+
+.team-name{
+  font-size:12px;
+  font-weight:700;
+  line-height:17px;
+}
+
+.score-area{
+  width:24%;
+  text-align:center;
+}
+
+.score{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.minute{
+  color:#74867c;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.vs{
+  color:#6e7d75;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* EMPTY */
+
+.empty{
+  display:none;
+  text-align:center;
+  padding:55px 20px;
+  color:#718078;
+}
+
+.empty i{
+  font-size:35px;
+  margin-bottom:14px;
+}
+
+.empty h3{
+  color:#b8c6be;
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.empty p{
+  font-size:12px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:600px;
+  height:72px;
+  background:rgba(9,20,15,.97);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  z-index:200;
+  backdrop-filter:blur(15px);
+}
+
+.nav-item{
+  width:20%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  color:#708077;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.nav-item i{
+  font-size:18px;
+}
+
+.nav-item.active{
+  color:#4ade80;
+}
+
+.nav-item:active{
+  transform:scale(.94);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:380px){
+
+  .content{
+    padding:16px 11px;
+  }
+
+  .team-name{
+    font-size:11px;
+  }
+
+  .score{
+    font-size:20px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="header-left">
+
+      <button class="back-btn"
+              onclick="goHome()">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+      </button>
+
+      <div class="title">
+        Matches
+      </div>
+
+    </div>
+
+    <button class="header-icon"
+            onclick="refreshMatches()">
+
+      <i class="fa-solid fa-rotate"></i>
+
+    </button>
+
+  </header>
+
+
+  <!-- CONTENT -->
+
+  <main class="content">
+
+    <!-- FILTER TABS -->
+
+    <div class="tabs">
+
+      <button class="tab active"
+              onclick="filterMatches('all',this)">
+        All
+      </button>
+
+      <button class="tab"
+              onclick="filterMatches('live',this)">
+        Live
+      </button>
+
+      <button class="tab"
+              onclick="filterMatches('upcoming',this)">
+        Upcoming
+      </button>
+
+      <button class="tab"
+              onclick="filterMatches('finished',this)">
+        Finished
+      </button>
+
+    </div>
+
+
+    <!-- DATE -->
+
+    <div class="date-row">
+
+      <div class="date-title">
+        Today's Matches
+      </div>
+
+      <div class="date">
+        Today
+      </div>
+
+    </div>
+
+
+    <!-- PREMIER LEAGUE -->
+
+    <section class="league-section"
+             data-league="premier">
+
+      <div class="league-header">
+
+        <div class="league-name">
+
+          <div class="league-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+
+          Premier League
+
+        </div>
+
+        <div class="country">
+          England
+        </div>
+
+      </div>
+
+
+      <!-- MAN UNITED VS CHELSEA -->
+
+      <div class="match"
+           data-status="live"
+           onclick="openMatch('manchester-united-chelsea')">
+
+        <div class="match-status">
+
+          <span class="live">
+            LIVE
+          </span>
+
+        </div>
+
+
+        <div class="match-content">
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Manchester United
+            </div>
+
+          </div>
+
+
+          <div class="score-area">
+
+            <div class="score">
+              2 - 1
+            </div>
+
+            <div class="minute">
+              67'
+            </div>
+
+          </div>
+
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Chelsea
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ARSENAL VS MAN CITY -->
+
+      <div class="match"
+           data-status="upcoming"
+           onclick="openMatch('arsenal-manchester-city')">
+
+        <div class="match-status">
+
+          <span class="time">
+            18:30
+          </span>
+
+        </div>
+
+
+        <div class="match-content">
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Arsenal
+            </div>
+
+          </div>
+
+
+          <div class="score-area">
+
+            <div class="vs">
+              VS
+            </div>
+
+          </div>
+
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Manchester City
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LIVERPOOL VS TOTTENHAM -->
+
+      <div class="match"
+           data-status="upcoming"
+           onclick="openMatch('liverpool-tottenham')">
+
+        <div class="match-status">
+
+          <span class="time">
+            20:00
+          </span>
+
+        </div>
+
+
+        <div class="match-content">
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Liverpool
+            </div>
+
+          </div>
+
+
+          <div class="score-area">
+
+            <div class="vs">
+              VS
+            </div>
+
+          </div>
+
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Tottenham
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LA LIGA -->
+
+    <section class="league-section"
+             data-league="laliga">
+
+      <div class="league-header">
+
+        <div class="league-name">
+
+          <div class="league-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+
+          La Liga
+
+        </div>
+
+        <div class="country">
+          Spain
+        </div>
+
+      </div>
+
+
+      <!-- BARCELONA VS REAL MADRID -->
+
+      <div class="match"
+           data-status="live"
+           onclick="openMatch('barcelona-real-madrid')">
+
+        <div class="match-status">
+
+          <span class="live">
+            LIVE
+          </span>
+
+        </div>
+
+
+        <div class="match-content">
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Barcelona
+            </div>
+
+          </div>
+
+
+          <div class="score-area">
+
+            <div class="score">
+              1 - 1
+            </div>
+
+            <div class="minute">
+              54'
+            </div>
+
+          </div>
+
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Real Madrid
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BUNDESLIGA -->
+
+    <section class="league-section"
+             data-league="bundesliga">
+
+      <div class="league-header">
+
+        <div class="league-name">
+
+          <div class="league-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+
+          Bundesliga
+
+        </div>
+
+        <div class="country">
+          Germany
+        </div>
+
+      </div>
+
+
+      <!-- BAYERN VS DORTMUND -->
+
+      <div class="match"
+           data-status="upcoming"
+           onclick="openMatch('bayern-dortmund')">
+
+        <div class="match-status">
+
+          <span class="time">
+            19:30
+          </span>
+
+        </div>
+
+
+        <div class="match-content">
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Bayern Munich
+            </div>
+
+          </div>
+
+
+          <div class="score-area">
+
+            <div class="vs">
+              VS
+            </div>
+
+          </div>
+
+
+          <div class="team">
+
+            <div class="team-logo">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="team-name">
+              Borussia Dortmund
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EMPTY -->
+
+    <div class="empty" id="empty">
+
+      <i class="fa-solid fa-calendar-xmark"></i>
+
+      <h3>No matches found</h3>
+
+      <p>
+        There are no matches in this category.
+      </p>
+
+    </div>
+
+  </main>
+
+
+  <!-- BOTTOM NAV -->
+
+  <nav class="bottom-nav">
+
+    <div class="nav-item"
+         onclick="goTo('home.html')">
+
+      <i class="fa-solid fa-house"></i>
+
+      <span>Home</span>
+
+    </div>
+
+
+    <div class="nav-item active">
+
+      <i class="fa-solid fa-table-list"></i>
+
+      <span>Matches</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="goTo('leagues.html')">
+
+      <i class="fa-solid fa-trophy"></i>
+
+      <span>Leagues</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="goTo('news.html')">
+
+      <i class="fa-regular fa-newspaper"></i>
+
+      <span>News</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="goTo('more.html')">
+
+      <i class="fa-solid fa-bars"></i>
+
+      <span>More</span>
+
+    </div>
+
+  </nav>
+
+</div>
+
+
+<script>
+
+/* NAVIGATION */
+
+function goTo(page){
+
+  window.location.href = page;
+
+}
+
+
+function goHome(){
+
+  window.location.href = "home.html";
+
+}
+
+
+/* MATCH DETAILS */
+
+function openMatch(matchId){
+
+  window.location.href =
+    "match.html?id=" + encodeURIComponent(matchId);
+
+}
+
+
+/* FILTER MATCHES */
+
+function filterMatches(type, button){
+
+  const tabs =
+    document.querySelectorAll(".tab");
+
+  tabs.forEach(function(tab){
+
+    tab.classList.remove("active");
+
+  });
+
+  button.classList.add("active");
+
+
+  const matches =
+    document.querySelectorAll(".match");
+
+  let visible = 0;
+
+
+  matches.forEach(function(match){
+
+    const status =
+      match.getAttribute("data-status");
+
+
+    if(type === "all"){
+
+      match.style.display = "block";
+      visible++;
+
+    }
+
+    else if(status === type){
+
+      match.style.display = "block";
+      visible++;
+
+    }
+
+    else{
+
+      match.style.display = "none";
+
+    }
+
+  });
+
+
+  const empty =
+    document.getElementById("empty");
+
+
+  if(visible === 0){
+
+    empty.style.display = "block";
+
+  }
+
+  else{
+
+    empty.style.display = "none";
+
+  }
+
+}
+
+
+/* REFRESH */
+
+function refreshMatches(){
+
+  const button =
+    document.querySelector(".header-icon");
+
+  const icon =
+    button.querySelector("i");
+
+
+  icon.classList.add("fa-spin");
+
+
+  setTimeout(function(){
+
+    icon.classList.remove("fa-spin");
+
+  },800);
+
+}
+
+</script>
+
+</body>
+</html>
